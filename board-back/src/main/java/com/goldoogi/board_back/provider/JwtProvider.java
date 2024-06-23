@@ -3,6 +3,8 @@ package com.goldoogi.board_back.provider;
 
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -17,12 +19,12 @@ import com.auth0.jwt.interfaces.JWTVerifier;
 
 @Component
 public class JwtProvider {
+
     @Value("${secret-key}")
     private String secretKey;
 
     private final int EXP = 1000*60*60;
     public final String TOKEN_PREFIX = "Bearer ";
-    public final String HEADER = "Authorization";
 
     public String create(String email) {
         try {
