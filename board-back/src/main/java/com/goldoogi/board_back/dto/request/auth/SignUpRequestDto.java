@@ -7,10 +7,12 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class SignUpRequestDto {
 
     @NotBlank @Email
@@ -19,7 +21,7 @@ public class SignUpRequestDto {
     private String password;
     @NotBlank
     private String nickname;
-    @NotBlank @Pattern(regexp = "^[0-9]{11,13}$")
+    @NotBlank @Pattern(regexp = "^[0-9]{10,13}$")
     private String telNumber;
     @NotBlank
     private String address;

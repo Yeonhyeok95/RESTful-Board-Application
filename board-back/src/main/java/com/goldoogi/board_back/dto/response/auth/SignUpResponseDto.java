@@ -17,7 +17,7 @@ public class SignUpResponseDto extends ResponseDto{
 
     public static ResponseEntity<SignUpResponseDto> success() {
         SignUpResponseDto result = new SignUpResponseDto();
-        return ResponseEntity.status(HttpStatus.OK).header("WWW-Authentication").body(result);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     public static ResponseEntity<ResponseDto> duplicatedEmail() {
