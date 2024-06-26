@@ -20,7 +20,7 @@ export default function Footer() {
         <div className="footer-top">
           <div className="footer-logo-box">
             <div className="icon-box">
-              <div className="icon logo-light-icon"></div>
+              <div className="icon logo-dolphin-icon"></div>
             </div>
             <div className="footer-logo-text">{"Goldoogi's board"}</div>
           </div>
