@@ -1,0 +1,19 @@
+.main-body-box {
+  padding: 20px 0;
+
+  display: flex;
+  justify-content: center;
+}
+
+.main-body-image {
+  width: 1000px;
+  height: 800px;
+  background-image: url(assets/SubinAndYeonInVividSydney.jpg);
+  background-position: 50% 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -7,7 +7,7 @@ interface Props {
   type: "text" | "password";
   placeholder: string;
   value: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   error: boolean;
 
   icon?: "eye-light-off-icon" | "eye-light-on-icon" | "expand-right-light-icon";
@@ -22,13 +22,8 @@ interface Props {
 const InputBox = forwardRef<HTMLInputElement, Props>((props: Props, ref) => {
   //          state: properties          //
   const { label, type, placeholder, value, error, icon, message } = props;
-  const { setValue, onButtonClick, onKeyDown } = props;
+  const { onChange, onButtonClick, onKeyDown } = props;
 
-  //          event handler: change input value          //
-  const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-    setValue(value);
-  };
   //          event handler: key event          //
   const onKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
     if (!onKeyDown) return;
@@ -48,7 +43,7 @@ const InputBox = forwardRef<HTMLInputElement, Props>((props: Props, ref) => {
           className="input"
           placeholder={placeholder}
           value={value}
-          onChange={onChangeHandler}
+          onChange={onChange}
           onKeyDown={onKeyDownHandler}
         />
         {onButtonClick !== undefined && (
