@@ -57,7 +57,10 @@ export default function Authentication() {
       const now = new Date().getTime();
       const expires = new Date(now + expirationTime * 1000);
 
-      setCookie("accessToken", token, { expires, path: MAIN_PATH() });
+      setCookie("accessToken", token, {
+        expires,
+        path: MAIN_PATH(),
+      });
       navigator(MAIN_PATH());
     };
     //          event handler: Email change event          //
@@ -177,15 +180,33 @@ export default function Authentication() {
     const passwordRef = useRef<HTMLInputElement | null>(null);
     //          state: Password Check element reference          //
     const passwordCheckRef = useRef<HTMLInputElement | null>(null);
+    //          state: Nickname element reference          //
+    const nicknameRef = useRef<HTMLInputElement | null>(null);
+    //          state: Tel Number element reference          //
+    const telNumberRef = useRef<HTMLInputElement | null>(null);
+    //          state: Address element reference          //
+    const addressRef = useRef<HTMLInputElement | null>(null);
+    //          state: Address Detail element reference          //
+    const addressDetailRef = useRef<HTMLInputElement | null>(null);
 
     //          state: page number          //
-    const [page, setPage] = useState<1 | 2>(1);
+    const [page, setPage] = useState<1 | 2>(2);
     //          state: Email          //
     const [email, setEmail] = useState<string>("");
     //          state: Password          //
     const [password, setPassword] = useState<string>("");
     //          state: Password Check          //
     const [passwordCheck, setPasswordCheck] = useState<string>("");
+    //          state: Nickname          //
+    const [nickname, setNickname] = useState<string>("");
+    //          state: telnumber          //
+    const [telNumber, setTelNumber] = useState<string>("");
+    //          state: Address          //
+    const [address, setAddress] = useState<string>("");
+    //          state: Address Detail          //
+    const [addressDetail, setAddressDetail] = useState<string>("");
+    //          state: Agreed Personal Detail          //
+    const [agreedPersonal, setAgreedPersonal] = useState<boolean>(false);
 
     //          state: Password Type          //
     const [passwordType, setPasswordType] = useState<"text" | "password">(
@@ -196,12 +217,22 @@ export default function Authentication() {
       "text" | "password"
     >("password");
 
-    //          state: Email Error Type          //
+    //          state: Email Error          //
     const [isEmailError, setEmailError] = useState<boolean>(false);
-    //          state: Password Error Type          //
+    //          state: Password Error          //
     const [isPasswordError, setPasswordError] = useState<boolean>(false);
-    //          state: Password Check Error Type          //
+    //          state: Password Check Error          //
     const [isPasswordCheckError, setPasswordCheckError] =
+      useState<boolean>(false);
+
+    //          state: Nickname Error          //
+    const [isNicknameError, setNicknameError] = useState<boolean>(false);
+    //          state: TelNumber Error          //
+    const [isTelNumberError, setTelNumberError] = useState<boolean>(false);
+    //          state: Address Error          //
+    const [isAddressError, setAddressError] = useState<boolean>(false);
+    //          state: Agreed Personal Consent Error          //
+    const [isAgreedPersonalError, setAgreedPersonalError] =
       useState<boolean>(false);
 
     //          state: Email Error Msg          //
@@ -211,6 +242,13 @@ export default function Authentication() {
     //          state: Password Check Error Msg          //
     const [passwordCheckErrorMsg, setPasswordCheckErrorMsg] =
       useState<string>("");
+
+    //          state: Nickname Error Msg          //
+    const [nicknameErrorMsg, setNicknameErrorMsg] = useState<string>("");
+    //          state: TelNumber Error Msg          //
+    const [telNumberErrorMsg, setTelNumberErrorMsg] = useState<string>("");
+    //          state: Address Error Msg          //
+    const [addressErrorMsg, setAddressErrorMsg] = useState<string>("");
 
     //          state: Password Button Icon          //
     const [passwordButtonIcon, setPasswordButtonIcon] = useState<
@@ -225,11 +263,15 @@ export default function Authentication() {
     const onEmailChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
       const { value } = event.target;
       setEmail(value);
+      setEmailError(false);
+      setEmailErrorMsg("");
     };
     //          event handler: Password Change event          //
     const onPasswordChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
       const { value } = event.target;
       setPassword(value);
+      setPasswordError(false);
+      setPasswordErrorMsg("");
     };
     //          event handler: Password Check Change event          //
     const onPasswordCheckChangeHandler = (
@@ -237,6 +279,41 @@ export default function Authentication() {
     ) => {
       const { value } = event.target;
       setPasswordCheck(value);
+      setPasswordCheckError(false);
+      setPasswordCheckErrorMsg("");
+    };
+    //          event handler: Nickname Change Event          //
+    const onNicknameChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+      const { value } = event.target;
+      setNickname(value);
+      setNicknameError(false);
+      setNicknameErrorMsg("");
+    };
+    //          event handler: TelNumber Change Event          //
+    const onTelNumberChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+      const { value } = event.target;
+      setTelNumber(value);
+      setTelNumberError(false);
+      setTelNumberErrorMsg("");
+    };
+    //          event handler: Address Change Event          //
+    const onAddressChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+      const { value } = event.target;
+      setAddress(value);
+      setAddressError(false);
+      setAddressErrorMsg("");
+    };
+    //          event handler: Address Detail Change Event          //
+    const onAddressDetailChangeHandler = (
+      event: ChangeEvent<HTMLInputElement>
+    ) => {
+      const { value } = event.target;
+      setAddressDetail(value);
+    };
+    //          event handler: Agreed Personal Button Click event          //
+    const onAgreedPersonalClickHandler = () => {
+      setAgreedPersonal(!agreedPersonal);
+      setAgreedPersonalError(false);
     };
     //          event handler: Password Button Click event          //
     const onPasswordButtonClickHandler = () => {
@@ -258,6 +335,8 @@ export default function Authentication() {
         setPasswordCheckType("password");
       }
     };
+    //          event handler: Address Button Click event          //
+    const onAddressButtonClickHandler = () => {};
     //          event handler: Next Step Button Click event          //
     const onNextButtonClickHandler = () => {
       const emailPattern = /^[a-zA-Z0-9]*@([-.]?[a-zA-Z0-9])*\.[a-zA-Z]{2,4}$/;
@@ -280,6 +359,14 @@ export default function Authentication() {
 
       setPage(2);
     };
+    //          event handler: Sign Up Button Click event          //
+    const onSignUpButtonClickHandler = () => {
+      alert("Sign Up Button!");
+    };
+    //          event handler: Login Link Click event          //
+    const onSignInLinkClickHandler = () => {
+      setView("sign-in");
+    };
     //          event handler: Email Key Down event          //
     const onEmailKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
       if (event.key !== "Enter") return;
@@ -299,7 +386,39 @@ export default function Authentication() {
       event: KeyboardEvent<HTMLInputElement>
     ) => {
       if (event.key !== "Enter") return;
+      if (!nicknameRef.current) return;
       onNextButtonClickHandler();
+      nicknameRef.current.focus();
+    };
+    //          event handler: Nickname Key Down event          //
+    const onNicknameKeyDownHandler = (
+      event: KeyboardEvent<HTMLInputElement>
+    ) => {
+      if (event.key !== "Enter") return;
+      if (!telNumberRef.current) return;
+      telNumberRef.current.focus();
+    };
+    //          event handler: TelNumber Key Down event          //
+    const onTelNumberKeyDownHandler = (
+      event: KeyboardEvent<HTMLInputElement>
+    ) => {
+      if (event.key !== "Enter") return;
+      onAddressButtonClickHandler();
+    };
+    //          event handler: Address Key Down event          //
+    const onAddressKeyDownHandler = (
+      event: KeyboardEvent<HTMLInputElement>
+    ) => {
+      if (event.key !== "Enter") return;
+      if (!addressDetailRef.current) return;
+      addressDetailRef.current.focus();
+    };
+    //          event handler: Address Detail Key Down event          //
+    const onAddressDetailKeyDownHandler = (
+      event: KeyboardEvent<HTMLInputElement>
+    ) => {
+      if (event.key !== "Enter") return;
+      onSignUpButtonClickHandler();
     };
 
     //          render: Sign Up Card          //
@@ -311,55 +430,152 @@ export default function Authentication() {
               <div className="auth-card-title">{"SignUp"}</div>
               <div className="auth-card-page">{`${page}/2`}</div>
             </div>
-            <InputBox
-              ref={emailRef}
-              label="Email Address*"
-              type="text"
-              placeholder="email@email.com"
-              value={email}
-              onChange={onEmailChangeHandler}
-              error={isEmailError}
-              message={emailErrorMsg}
-              onKeyDown={onEmailKeyDownHandler}
-            />
-            <InputBox
-              ref={passwordRef}
-              label="Password*"
-              type={passwordType}
-              placeholder="password"
-              value={password}
-              onChange={onPasswordChangeHandler}
-              error={isPasswordError}
-              message={passwordErrorMsg}
-              icon={passwordButtonIcon}
-              onButtonClick={onPasswordButtonClickHandler}
-              onKeyDown={onPasswordKeyDownHandler}
-            />
-            <InputBox
-              ref={passwordCheckRef}
-              label="Password Check*"
-              type={passwordCheckType}
-              placeholder="password again"
-              value={passwordCheck}
-              onChange={onPasswordCheckChangeHandler}
-              error={isPasswordCheckError}
-              message={passwordCheckErrorMsg}
-              icon={passwordCheckButtonIcon}
-              onButtonClick={onPasswordCheckButtonClickHandler}
-              onKeyDown={onPasswordCheckKeyDownHandler}
-            />
+            {page === 1 && (
+              <>
+                <InputBox
+                  ref={emailRef}
+                  label="Email Address*"
+                  type="text"
+                  placeholder="email@email.com"
+                  value={email}
+                  onChange={onEmailChangeHandler}
+                  error={isEmailError}
+                  message={emailErrorMsg}
+                  onKeyDown={onEmailKeyDownHandler}
+                />
+                <InputBox
+                  ref={passwordRef}
+                  label="Password*"
+                  type={passwordType}
+                  placeholder="password"
+                  value={password}
+                  onChange={onPasswordChangeHandler}
+                  error={isPasswordError}
+                  message={passwordErrorMsg}
+                  icon={passwordButtonIcon}
+                  onButtonClick={onPasswordButtonClickHandler}
+                  onKeyDown={onPasswordKeyDownHandler}
+                />
+                <InputBox
+                  ref={passwordCheckRef}
+                  label="Password Check*"
+                  type={passwordCheckType}
+                  placeholder="password again"
+                  value={passwordCheck}
+                  onChange={onPasswordCheckChangeHandler}
+                  error={isPasswordCheckError}
+                  message={passwordCheckErrorMsg}
+                  icon={passwordCheckButtonIcon}
+                  onButtonClick={onPasswordCheckButtonClickHandler}
+                  onKeyDown={onPasswordCheckKeyDownHandler}
+                />
+              </>
+            )}
+            {page === 2 && (
+              <>
+                <InputBox
+                  ref={nicknameRef}
+                  label="Nickname*"
+                  type="text"
+                  placeholder="Nickname"
+                  value={nickname}
+                  onChange={onNicknameChangeHandler}
+                  error={isNicknameError}
+                  message={nicknameErrorMsg}
+                  onKeyDown={onNicknameKeyDownHandler}
+                />
+                <InputBox
+                  ref={telNumberRef}
+                  label="Phone number*"
+                  type="text"
+                  placeholder="0411111111"
+                  value={telNumber}
+                  onChange={onTelNumberChangeHandler}
+                  error={isTelNumberError}
+                  message={telNumberErrorMsg}
+                  onKeyDown={onTelNumberKeyDownHandler}
+                />
+                <InputBox
+                  ref={addressRef}
+                  label="Address*"
+                  type="text"
+                  placeholder="100 Cleveland St, Chippendale, NSW, 2008"
+                  value={address}
+                  onChange={onAddressChangeHandler}
+                  error={isAddressError}
+                  message={addressErrorMsg}
+                  icon={"expand-right-light-icon"}
+                  onButtonClick={onAddressButtonClickHandler}
+                  onKeyDown={onAddressKeyDownHandler}
+                />
+                <InputBox
+                  ref={addressDetailRef}
+                  label="Address Detail"
+                  type="text"
+                  placeholder="Unit 52"
+                  value={addressDetail}
+                  onChange={onAddressDetailChangeHandler}
+                  error={false}
+                  onKeyDown={onAddressDetailKeyDownHandler}
+                />
+              </>
+            )}
           </div>
           <div className="auth-card-bottom">
-            <div
-              className="black-large-full-button"
-              onClick={onNextButtonClickHandler}
-            >
-              {"Next"}
-            </div>
+            {page === 1 && (
+              <div
+                className="black-large-full-button"
+                onClick={onNextButtonClickHandler}
+              >
+                {"Next"}
+              </div>
+            )}
+            {page === 2 && (
+              <>
+                <div className="auth-consent-box">
+                  <div
+                    className="auth-check-box"
+                    onClick={onAgreedPersonalClickHandler}
+                  >
+                    <div
+                      className={`icon ${
+                        agreedPersonal
+                          ? "check-round-fill-icon"
+                          : "check-ring-light-icon"
+                      }`}
+                    ></div>
+                  </div>
+                  <div
+                    className={
+                      isAgreedPersonalError
+                        ? "auth-consent-title-error"
+                        : "auth-consent-title"
+                    }
+                  >
+                    {"Agree with Privacy and Policy"}
+                  </div>
+                  <div className="auth-consent-link">
+                    {"More Information >"}
+                  </div>
+                </div>
+                <div
+                  className="black-large-full-button"
+                  onClick={onSignUpButtonClickHandler}
+                >
+                  {"Sign Up"}
+                </div>
+              </>
+            )}
+
             <div className="auth-description-box">
               <div className="auth-description">
                 {"Already existing accounts?"}
-                <span className="auth-description-link">{" Login"}</span>
+                <span
+                  className="auth-description-link"
+                  onClick={onSignInLinkClickHandler}
+                >
+                  {" Login"}
+                </span>
               </div>
             </div>
           </div>
