@@ -34,9 +34,7 @@ const InputBox = forwardRef<HTMLInputElement, Props>((props: Props, ref) => {
   return (
     <div className="inputbox">
       <div className="inputbox-label">{label}</div>
-      <div
-        className={error ? "inputbox-container-error" : "inputbox-container"}
-      >
+      <div className={error ? "inputbox-container-error" : "inputbox-container"}>
         <input
           ref={ref}
           type={type}
@@ -52,9 +50,7 @@ const InputBox = forwardRef<HTMLInputElement, Props>((props: Props, ref) => {
           </div>
         )}
       </div>
-      {message !== undefined && (
-        <div className="inputbox-message">{message}</div>
-      )}
+      {message !== undefined && <div className="inputbox-message">{message}</div>}
     </div>
   );
 });
