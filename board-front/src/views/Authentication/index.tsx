@@ -10,6 +10,7 @@ import { MAIN_PATH } from "constant";
 import { useNavigate } from "react-router-dom";
 import AddressInputBox from "components/AddressInputBox";
 
+// test
 //          component: Authentication          //
 export default function Authentication() {
   //           state: screen state          //
@@ -512,17 +513,9 @@ export default function Authentication() {
               <>
                 <div className="auth-consent-box">
                   <div className="auth-check-box" onClick={onAgreedPersonalClickHandler}>
-                    <div
-                      className={`icon ${
-                        agreedPersonal ? "check-round-fill-icon" : "check-ring-light-icon"
-                      }`}
-                    ></div>
+                    <div className={`icon ${agreedPersonal ? "check-round-fill-icon" : "check-ring-light-icon"}`}></div>
                   </div>
-                  <div
-                    className={
-                      isAgreedPersonalError ? "auth-consent-title-error" : "auth-consent-title"
-                    }
-                  >
+                  <div className={isAgreedPersonalError ? "auth-consent-title-error" : "auth-consent-title"}>
                     {"Agree with Privacy and Policy"}
                   </div>
                   <div className="auth-consent-link">{"More Information >"}</div>
