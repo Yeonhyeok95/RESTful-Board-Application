@@ -10,7 +10,6 @@ import { MAIN_PATH } from "constant";
 import { useNavigate } from "react-router-dom";
 import AddressInputBox from "components/AddressInputBox";
 
-// test
 //          component: Authentication          //
 export default function Authentication() {
   //           state: screen state          //
